@@ -2,6 +2,10 @@ package first_attempt;
 
 public class Entry {
 
+    public enum Activity {
+        LIFT, BIKE, ROW;
+    }
+
     private int month;
     private int day;
     private int weight;
@@ -36,7 +40,22 @@ public class Entry {
         return act;
     }
 
-    public void prntStr() {
-        System.out.printf("Activity: " + act.getName() + " Length: " + count + act.getUnit() + " Weight: " + weight)
+    @Override
+    /**
+     * toString method for general use
+     *
+     * @return String in format of Date: xx/xx Activity: act Length: count unit Weight weight
+     */
+    public String toString() {
+        return "Date: " + getMonth() + "/" + getDay() + " Activity: " + act + " Length: " + count + " Weight: " + weight;
+    }
+
+    /**
+     * used when writing to a file
+     *
+     * @return String in format of month day act count weight
+     */
+    public String rawString() {
+        return month + " " + day + " " + act + " " + count + " " + weight;
     }
 }
