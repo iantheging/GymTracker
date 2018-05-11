@@ -1,8 +1,6 @@
 package first_attempt;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,9 +28,9 @@ public class Tracker {
             Scanner s = new Scanner(f);
             track = new ArrayList<>();
 
-            while (s.hasNextLine()) {
-                int m = Integer.parseInt(s.next());
-                int d = Integer.parseInt(s.next());
+            while (s.hasNext()) {
+                int m = s.nextInt();
+                int d = s.nextInt();
 
                 String activity = s.next();
                 Entry.Activity a;
@@ -54,8 +52,8 @@ public class Tracker {
                         break;
                 }
 
-                int c = Integer.parseInt(s.next());
-                int w = Integer.parseInt(s.next());
+                double c = s.nextDouble();
+                int w = s.nextInt();
 
                 track.add(new Entry(m, d, w, c, a));
             }
@@ -102,18 +100,17 @@ public class Tracker {
     /**
      * Transfers all entries to a text file
      *
-     * @param filename
+     * @param f
      * @throws FileNotFoundException
      */
-    public void writeToFile(String filename) throws FileNotFoundException {
-        File f = new File(filename + ".txt");
-        PrintWriter pw = new PrintWriter(f);
+    public void writeToFile(File f) throws FileNotFoundException, IOException {
+        FileWriter fw = new FileWriter(f, true);
 
         for (Entry e : track) {
-            pw.println(e.rawString());
+            fw.append(e.rawString() + "\n");
         }
 
-        pw.close();
+        fw.close();
     }
 
 }
